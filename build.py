@@ -4,7 +4,7 @@ articles/*.html(先頭に <!--META {json} META--> ブロック)を読み、
 共通テンプレートで包んで dist/ に出力する。
 
 設計方針:
-- 商品比較テーブルはMETAのproductsから生成し、価格/メーカー/特徴で並び替え可能
+- 商品比較テーブルはMETAのproductsから生成し、価格/メーカー/スペックで並び替え可能
 - PR枠は ads.json に実在の広告がある場合のみ描画(空なら何も出さない=偽リンクを作らない)
 - 商品リンクも links が空なら描画しない(アフィリエイト提携後に実URLを差し込む)
 """
@@ -68,12 +68,12 @@ def product_table(products):
     return f"""<div class="sort-bar" role="group" aria-label="並び替え">
   <span class="sort-label">並び替え:</span>
   <button class="sort-btn" data-key="price">価格</button>
-  <button class="sort-btn" data-key="feature">特徴</button>
+  <button class="sort-btn" data-key="feature">スペック</button>
   <button class="sort-btn" data-key="maker">メーカー</button>
 </div>
 <div class="table-wrap">
   <table class="product-table" id="product-table">
-    <thead><tr><th>メーカー</th><th>型番</th><th>特徴</th><th>主要スペック</th><th>実勢価格目安</th><th>販売店</th></tr></thead>
+    <thead><tr><th>メーカー</th><th>型番</th><th>スペック分類</th><th>詳細スペック</th><th>実勢価格目安</th><th>販売店</th></tr></thead>
     <tbody>
 {chr(10).join(rows)}
     </tbody>
