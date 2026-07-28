@@ -1,0 +1,108 @@
+/* 工具えらび堂 — 実用系メディアの王道レイアウト
+   方針: 白背景・本文黒・鉄紺+工具オレンジの2色。装飾より情報密度と可読性。 */
+:root {
+  --ink: #222;
+  --muted: #666;
+  --line: #ddd;
+  --steel: #2b3a42;      /* 鉄紺: ヘッダ・見出し */
+  --orange: #d35400;     /* 工具オレンジ: アクセント・リンク */
+  --bg-soft: #f5f4f2;
+  --pr-bg: #fff8ec;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.9;
+  font-size: 16px;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+/* ヘッダ */
+.site-header { background: var(--steel); color: #fff; padding: 14px 0 12px; border-bottom: 4px solid var(--orange); }
+.logo { color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 700; letter-spacing: .08em; }
+.site-desc { margin: 2px 0 0; font-size: .78rem; color: #b8c4cb; }
+
+/* パンくず・記事情報 */
+.breadcrumb { font-size: .8rem; color: var(--muted); margin: 14px 0 0; }
+.breadcrumb a { color: var(--muted); }
+.article-meta { font-size: .8rem; color: var(--muted); margin: 4px 0 0; }
+
+/* 本文 */
+article { margin-top: 8px; }
+h1 { font-size: 1.55rem; line-height: 1.45; color: var(--steel); border-bottom: 3px solid var(--steel); padding-bottom: .4rem; margin: .6rem 0 1rem; }
+h2 { font-size: 1.2rem; color: var(--steel); border-left: 5px solid var(--orange); padding: .15rem 0 .15rem .6rem; margin: 2.2rem 0 .8rem; }
+h3 { font-size: 1.02rem; margin: 1.6rem 0 .5rem; }
+a { color: var(--orange); }
+strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
+
+/* 結論ボックス(実用系メディアの定番) */
+.point-box { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 6px; padding: .9rem 1.1rem; margin: 1rem 0; }
+.point-box .pb-title { font-weight: 700; color: var(--steel); display: block; margin-bottom: .3rem; }
+.point-box ul { margin: 0; padding-left: 1.3rem; }
+
+/* PR枠(上部) — ステマ規制対応の明示ラベル */
+.pr-slot { background: var(--pr-bg); border: 1px solid #e8cfa0; border-radius: 6px; padding: .6rem .9rem; margin: 14px 0 4px; font-size: .9rem; }
+.pr-tag { display: inline-block; background: #8a6d3b; color: #fff; font-size: .68rem; padding: 0 .45em; border-radius: 3px; margin-right: .7em; vertical-align: middle; }
+.pr-item { margin-right: 1.2em; }
+
+/* 並び替えバー */
+.sort-bar { margin: 1rem 0 .4rem; font-size: .88rem; }
+.sort-label { color: var(--muted); margin-right: .4em; }
+.sort-btn {
+  background: #fff; border: 1px solid var(--line); border-radius: 4px;
+  padding: .3rem .9rem; margin-right: .4rem; cursor: pointer; font-size: .88rem; color: var(--ink);
+}
+.sort-btn.active { background: var(--steel); color: #fff; border-color: var(--steel); }
+.sort-btn.active::after { content: " ▲"; font-size: .7em; }
+.sort-btn.active.desc::after { content: " ▼"; }
+
+/* 商品テーブル */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+.product-table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: .88rem; }
+.product-table th {
+  background: var(--steel); color: #fff; font-weight: 600; text-align: left;
+  padding: .5rem .6rem; white-space: nowrap; position: sticky; top: 0;
+}
+.product-table td { border-top: 1px solid var(--line); padding: .55rem .6rem; vertical-align: top; }
+.product-table tbody tr:nth-child(even) { background: #fafaf8; }
+.td-maker { font-weight: 700; white-space: nowrap; }
+.td-model { white-space: nowrap; }
+.td-price { white-space: nowrap; font-weight: 700; color: var(--orange); }
+.price-note { display: block; font-weight: 400; font-size: .74rem; color: var(--muted); }
+.feature-tag { display: inline-block; background: #eef3f5; border: 1px solid #cfdde3; color: var(--steel); font-size: .78rem; padding: 0 .5em; border-radius: 3px; white-space: nowrap; }
+.shop-link { display: inline-block; margin: 0 .5em .2em 0; font-size: .85rem; }
+.muted { color: var(--muted); font-size: .8rem; }
+.price-disclaimer { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+/* 汎用テーブル */
+.plain-table { border-collapse: collapse; width: 100%; margin: .8rem 0; }
+.plain-table th, .plain-table td { border: 1px solid var(--line); padding: .5rem .7rem; text-align: left; font-size: .92rem; }
+.plain-table th { background: var(--bg-soft); white-space: nowrap; width: 9em; }
+
+/* 出典 */
+.sources { background: var(--bg-soft); border-radius: 6px; padding: .8rem 1.1rem; margin: 2rem 0 0; font-size: .82rem; }
+.sources .src-title { font-weight: 700; display: block; margin-bottom: .2rem; }
+.sources ul { margin: 0; padding-left: 1.3rem; }
+
+/* トップページ */
+.site-intro { background: var(--bg-soft); border-radius: 6px; padding: 1rem 1.2rem; margin: 18px 0; font-size: .95rem; }
+.cat-block h2 { margin-top: 1.6rem; }
+.article-list { list-style: none; padding: 0; margin: 0; }
+.article-list li { border-bottom: 1px dashed var(--line); padding: .7rem 0; }
+.article-list a { font-weight: 600; text-decoration: none; }
+.article-list a:hover { text-decoration: underline; }
+.li-desc { display: block; font-size: .82rem; color: var(--muted); }
+
+/* フッタ */
+.site-footer { background: var(--bg-soft); border-top: 1px solid var(--line); margin-top: 3rem; padding: 1.4rem 0 2rem; font-size: .78rem; color: var(--muted); }
+.site-footer nav { margin: .5rem 0; }
+.site-footer a { color: var(--muted); }
+
+@media (max-width: 600px) {
+  body { font-size: 15px; }
+  h1 { font-size: 1.3rem; }
+}
