@@ -115,7 +115,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None)
   <div class="wrap">
     <p>当サイトは、規格・メーカー公式スペック等の一次情報に基づいて工具の選び方を解説するサイトです。実機の使用体験を装ったレビューは掲載していません。</p>
     <p>当サイトはアフィリエイトプログラムに参加しており、記事内のリンクを経由した購入により報酬を得ることがあります。広告リンクには「PR」表記を行っています。</p>
-    <nav><a href="/about">運営者情報</a> ／ <a href="/privacy">プライバシーポリシー</a></nav>
+    <nav><a href="/about">運営者情報</a> ／ <a href="/advertise">広告掲載のご案内</a> ／ <a href="/privacy">プライバシーポリシー</a></nav>
     <p>&copy; 2026 {SITE_NAME}</p>
   </div>
 </footer>
@@ -184,6 +184,75 @@ def build():
 <p>当サイトはアフィリエイトプログラムに参加しています。広告・アフィリエイトリンクには「PR」表記を行い、報酬の有無が記事の評価に影響しない運営を行います。</p></article>"""
     with open(os.path.join(DIST, "about.html"), "w", encoding="utf-8") as f:
         f.write(page(f"運営者情報 | {SITE_NAME}", "工具えらび堂の運営者情報と編集方針", about, path_label="運営者情報"))
+
+    # 広告掲載のご案内(メディアガイド)
+    ad_count = len(articles)
+    adguide = f"""<article><h1>広告掲載のご案内</h1>
+<p>工具えらび堂は、電動工具の<strong>規格と公式スペックに基づく選定情報</strong>を扱う専門メディアです。
+読者は「これから工具を買う人」に限定されており、購買前の比較検討段階で接触できる点を評価いただいています。</p>
+
+<div class="point-box"><span class="pb-title">掲載をご検討の企業様へ — 先にお伝えすること</span>
+<ul>
+<li>当メディアは<strong>2026年7月に開設したばかり</strong>で、掲載枠はすべて先行導入の位置づけです(現在の記事数: {ad_count}本)</li>
+<li>アクセス実績は計測開始後に開示します。<strong>実績値が出るまでは試験導入価格でのご相談を承ります</strong></li>
+<li>広告出稿の有無によって、記事内の製品評価・掲載順を変更することはありません(下記「編集の独立性」)</li>
+</ul></div>
+
+<h2>掲載メニュー</h2>
+<div class="table-wrap">
+<table class="product-table">
+<thead><tr><th>メニュー</th><th>内容</th><th>掲載位置</th><th>料金(税別)</th></tr></thead>
+<tbody>
+<tr>
+  <td class="td-maker">タイアップ記事</td>
+  <td class="td-spec">貴社製品を軸にした選定ガイド記事を編集部が制作。規格・公式スペックに基づく解説形式で、読者に「なぜその製品が選択肢に入るか」を伝えます。制作費込み・恒久掲載</td>
+  <td>独立記事(PR表記)</td>
+  <td class="td-price">150,000円<span class="price-note">1本・制作込み</span></td>
+</tr>
+<tr>
+  <td class="td-maker">トップPR枠</td>
+  <td class="td-spec">サイト最上部のPR枠にテキストリンクを掲載。全訪問者の視界に入る位置です</td>
+  <td>トップページ最上部</td>
+  <td class="td-price">50,000円<span class="price-note">月額</span></td>
+</tr>
+<tr>
+  <td class="td-maker">記事内PR枠</td>
+  <td class="td-spec">比較記事・基礎知識記事の本文上部にテキストリンクを掲載。カテゴリ指定可</td>
+  <td>各記事の上部</td>
+  <td class="td-price">30,000円<span class="price-note">月額</span></td>
+</tr>
+<tr>
+  <td class="td-maker">比較表への製品掲載</td>
+  <td class="td-spec">既存の比較記事へ貴社製品を追加。<strong>編集部の判断で掲載可否を決定するため、この枠は無償です</strong>(公式スペックが公開されていることが条件)</td>
+  <td>該当記事の比較表</td>
+  <td class="td-price">無償<span class="price-note">編集判断</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="price-disclaimer">※ 期間・本数・複数枠のお申し込みについては別途ご相談ください。開設初期のため、実績値をご覧いただいてからのご判断でも構いません。</p>
+
+<h2>編集の独立性について</h2>
+<p>当メディアの価値は、読者が「広告ではなく判断材料」として信頼できる点にあります。したがって次を運営方針として明示します。</p>
+<ul>
+<li>広告出稿の有無で、記事内の製品評価・比較表の並び順・推奨内容を変更しません</li>
+<li>タイアップ記事には必ず「PR」表記を行い、通常記事と区別します</li>
+<li>実機を使用した体験を装う表現は、タイアップ記事でも用いません(<a href="/about">編集方針</a>)</li>
+<li>公表スペックと異なる内容、根拠を示せない優位性の記載はお受けできません</li>
+</ul>
+
+<h2>お問い合わせ</h2>
+<table class="plain-table">
+<tr><th>担当</th><td>工具えらび堂 編集部(運営者: 中村太一)</td></tr>
+<tr><th>メール</th><td>nks.taichi@gmail.com</td></tr>
+<tr><th>ご連絡いただきたい事項</th><td>貴社名・ご担当者名・ご検討中のメニュー・対象製品</td></tr>
+</table>
+<p>掲載可否は、当サイトの読者にとって有益かどうかを基準に編集部で判断させていただきます。</p>
+</article>"""
+    with open(os.path.join(DIST, "advertise.html"), "w", encoding="utf-8") as f:
+        f.write(page(f"広告掲載のご案内 | {SITE_NAME}",
+                     "工具えらび堂の広告掲載メニュー・料金・編集方針のご案内。タイアップ記事、PR枠の掲載を承ります。",
+                     adguide, path_label="広告掲載のご案内"))
 
     # プライバシーポリシー
     privacy = """<article><h1>プライバシーポリシー</h1>
