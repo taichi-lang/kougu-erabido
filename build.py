@@ -262,7 +262,30 @@ def build():
     with open(os.path.join(DIST, "privacy.html"), "w", encoding="utf-8") as f:
         f.write(page(f"プライバシーポリシー | {SITE_NAME}", "工具えらび堂のプライバシーポリシー", privacy, path_label="プライバシーポリシー"))
 
-    print(f"built {len(articles)} articles -> dist/")
+    # sitemap.xml(Search Consoleに登録した瞬間に効くよう、記事の更新日を反映する)
+    static_pages = [("", None), ("about", None), ("advertise", None), ("privacy", None)]
+    today = date.today().isoformat()
+    urls = []
+    for path, _ in static_pages:
+        loc = f"{SITE_URL}/{path}" if path else f"{SITE_URL}/"
+        urls.append(f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{today}</lastmod>\n  </url>")
+    for a in sorted(articles, key=lambda x: x["date"], reverse=True):
+        urls.append(
+            f'  <url>\n    <loc>{SITE_URL}/{a["slug"]}</loc>\n'
+            f'    <lastmod>{a["date"]}</lastmod>\n  </url>'
+        )
+    sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+               + "\n".join(urls) + "\n</urlset>\n")
+    with open(os.path.join(DIST, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(sitemap)
+
+    # robots.txt(全ページ許可 + サイトマップの所在を明示)
+    robots = f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n"
+    with open(os.path.join(DIST, "robots.txt"), "w", encoding="utf-8") as f:
+        f.write(robots)
+
+    print(f"built {len(articles)} articles -> dist/ (sitemap: {len(urls)} URLs)")
 
 
 if __name__ == "__main__":
