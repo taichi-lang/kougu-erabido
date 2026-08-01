@@ -105,4 +105,16 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
 @media (max-width: 600px) {
   body { font-size: 15px; }
   h1 { font-size: 1.3rem; }
+  /* 汎用テーブルの横あふれ対策。
+     .plain-table の th は白背景で見やすくするため white-space:nowrap + width:9em を指定しているが、
+     3列以上の表ではこれが最小幅を押し上げ、狭い画面でページ全体が横スクロールしていた
+     (2026-08-02の目視点検で kagu-kumitate-driver が375px幅で121pxはみ出していた)。
+     狭い画面では見出しの折り返しを許可して、表を必ずコンテナ内に収める。 */
+  .plain-table { table-layout: fixed; }
+  .plain-table th { white-space: normal; width: auto; }
+  .plain-table th, .plain-table td {
+    padding: .45rem .5rem;
+    font-size: .86rem;
+    overflow-wrap: anywhere;
+  }
 }
