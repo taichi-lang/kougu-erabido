@@ -1,5 +1,16 @@
 {
-  "_comment": "PR枠の広告定義。urlが入っているものだけが描画される。アフィリエイト提携が通ったら実URLをここに追加する。偽のURL・準備中の枠は絶対に入れない。",
+  "_comment": "PR枠と商品導線の定義。urlが空のものは描画されない(偽リンクを作らないため)。",
+  "rakuten": {
+    "_note": "楽天アフィリエイトの成果リンク。affiliate_idはオーナーのアカウント固有ID。{q}はURLエンコード済みの検索語に置換される。2026-08-02に実リンクから抽出し、302リダイレクトを実測して動作確認済み。",
+    "affiliate_id": "5644fda0.ae80063f.5644fda1.c556ee7b",
+    "affiliate_url_template": "https://hb.afl.rakuten.co.jp/ichiba/5644fda0.ae80063f.5644fda1.c556ee7b/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F{q}%2F&link_type=text"
+  },
+  "amazon": {
+    "_note": "Amazonアソシエイト。オーナーの審査通過後、associate_tag(例: xxxxxxxx-22)を受け取ったら affiliate_url_template の TAG_HERE を置き換えて有効化する。テンプレートが空の間はボタンを描画しない(偽リンクを作らないため)。",
+    "associate_tag": "",
+    "affiliate_url_template": ""
+  },
+  "_amazon_template_when_ready": "https://www.amazon.co.jp/s?k={q}&tag=TAG_HERE",
   "home_top": [],
   "article_top": []
 }

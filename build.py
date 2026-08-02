@@ -48,6 +48,41 @@ def pr_slot(ads, slot):
     return f'<aside class="pr-slot"><span class="pr-tag">PR</span>{inner}</aside>'
 
 
+def shop_block(ads, meta):
+    """記事の末尾に、その記事のテーマに合う商品検索への導線を出す。
+
+    ads.json の rakuten.affiliate_url_template に実際のアフィリエイトURLの雛形が
+    入っているときだけ描画する。雛形が無ければ何も出さない(偽リンクを作らない)。
+    雛形は {q} をURLエンコード済みの検索語で置換する形式。
+    記事側は META の shop_keyword で検索語を指定する。
+    """
+    import urllib.parse
+    kw = meta.get("shop_keyword", "")
+    if not kw:
+        return ""
+    q = urllib.parse.quote(kw)
+
+    buttons = []
+    for key, label in (("rakuten", "楽天市場"), ("amazon", "Amazon")):
+        tmpl = (ads.get(key) or {}).get("affiliate_url_template", "")
+        if tmpl:
+            url = tmpl.replace("{q}", q)
+            buttons.append(
+                f'<a class="shop-cta shop-{key}" href="{url}" '
+                f'rel="sponsored nofollow" target="_blank">{label}で「{kw}」を見る</a>')
+    if not buttons:
+        return ""
+
+    return f"""<aside class="shop-block">
+  <span class="pr-tag">PR</span>
+  <p class="shop-lead">この記事で扱った{meta.get('shop_label', kw)}を実際に探す場合はこちらから。
+  価格と在庫は変動するため、最新の情報は販売サイトでご確認ください。</p>
+  <div class="shop-ctas">{''.join(buttons)}</div>
+  <p class="shop-note">上記リンクは広告(アフィリエイト)です。リンク経由での購入により当サイトに紹介料が発生する場合がありますが、
+  掲載内容の選定・評価は紹介料の有無とは無関係に、メーカー公式スペックに基づいて行っています。</p>
+</aside>"""
+
+
 def product_table(products):
     if not products:
         return ""
@@ -144,7 +179,9 @@ def build():
         meta = json.loads(m.group(1))
         body = raw[m.end():].strip()
         body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", [])))
-        full = pr_slot(ads, "article_top") + f"<article><h1>{meta['title']}</h1>" + body + "</article>"
+        full = (pr_slot(ads, "article_top")
+                + f"<article><h1>{meta['title']}</h1>" + body + shop_block(ads, meta)
+                + "</article>")
         html = page(f"{meta['title']} | {SITE_NAME}", meta["description"], full,
                     path_label=meta["title"], is_article=True, meta=meta)
         with open(os.path.join(DIST, meta["slug"] + ".html"), "w", encoding="utf-8") as f:
