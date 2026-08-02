@@ -66,7 +66,8 @@ def shop_block(ads, meta):
     for key, label in (("rakuten", "楽天市場"), ("amazon", "Amazon")):
         tmpl = (ads.get(key) or {}).get("affiliate_url_template", "")
         if tmpl:
-            url = tmpl.replace("{q}", q)
+            # href属性に入れるので、クエリ区切りの & をHTMLエスケープする
+            url = tmpl.replace("{q}", q).replace("&", "&amp;")
             buttons.append(
                 f'<a class="shop-cta shop-{key}" href="{url}" '
                 f'rel="sponsored nofollow" target="_blank">{label}で「{kw}」を見る</a>')

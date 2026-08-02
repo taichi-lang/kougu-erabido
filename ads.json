@@ -6,11 +6,10 @@
     "affiliate_url_template": "https://hb.afl.rakuten.co.jp/ichiba/5644fda0.ae80063f.5644fda1.c556ee7b/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F{q}%2F&link_type=text"
   },
   "amazon": {
-    "_note": "Amazonアソシエイト。オーナーの審査通過後、associate_tag(例: xxxxxxxx-22)を受け取ったら affiliate_url_template の TAG_HERE を置き換えて有効化する。テンプレートが空の間はボタンを描画しない(偽リンクを作らないため)。",
-    "associate_tag": "",
-    "affiliate_url_template": ""
+    "_note": "Amazonアソシエイト。2026-08-02にアソシエイト・セントラルのStoreID表示で kouguerabido-22 を確認して有効化した。{q}はURLエンコード済みの検索語に置換される。",
+    "associate_tag": "kouguerabido-22",
+    "affiliate_url_template": "https://www.amazon.co.jp/s?k={q}&tag=kouguerabido-22"
   },
-  "_amazon_template_when_ready": "https://www.amazon.co.jp/s?k={q}&tag=TAG_HERE",
   "home_top": [],
   "article_top": []
 }
