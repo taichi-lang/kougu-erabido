@@ -152,6 +152,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None)
   <div class="wrap">
     <p>当サイトは、規格・メーカー公式スペック等の一次情報に基づいて工具の選び方を解説するサイトです。実機の使用体験を装ったレビューは掲載していません。</p>
     <p>当サイトはアフィリエイトプログラムに参加しており、記事内のリンクを経由した購入により報酬を得ることがあります。広告リンクには「PR」表記を行っています。</p>
+    <p>Amazonのアソシエイトとして、{SITE_NAME}は適格販売により収入を得ています。</p>
     <nav><a href="/about">運営者情報</a> ／ <a href="/advertise">広告掲載のご案内</a> ／ <a href="/privacy">プライバシーポリシー</a></nav>
     <p>&copy; 2026 {SITE_NAME}</p>
   </div>
