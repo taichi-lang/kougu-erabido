@@ -96,6 +96,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None)
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta name="google-site-verification" content="cnmJh_5HFVfXrRwlZqi1CpgyxR8yQioO23UlJTq89aA">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
