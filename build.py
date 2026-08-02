@@ -118,7 +118,9 @@ def product_table(products):
 <p class="price-disclaimer">※ 価格は編集部調査による目安(記事更新日時点)です。実際の販売価格は店舗・時期により変動します。スペックは各メーカー公式サイトの公表値に基づきます。</p>"""
 
 
-def page(title, description, body, path_label=None, is_article=False, meta=None):
+def page(title, description, body, path_label=None, is_article=False, meta=None,
+         canonical_path=""):
+    canonical = f'\n<link rel="canonical" href="{SITE_URL}{canonical_path}">' if canonical_path else ""
     breadcrumb = ""
     if path_label:
         breadcrumb = f'<nav class="breadcrumb"><a href="/">ホーム</a> &rsaquo; <span>{path_label}</span></nav>'
@@ -132,7 +134,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None)
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">
+<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
@@ -185,7 +187,8 @@ def build():
                 + f"<article><h1>{meta['title']}</h1>" + body + shop_block(ads, meta)
                 + "</article>")
         html = page(f"{meta['title']} | {SITE_NAME}", meta["description"], full,
-                    path_label=meta["title"], is_article=True, meta=meta)
+                    path_label=meta["title"], is_article=True, meta=meta,
+                    canonical_path="/" + meta["slug"])
         with open(os.path.join(DIST, meta["slug"] + ".html"), "w", encoding="utf-8") as f:
             f.write(html)
         articles.append(meta)
@@ -207,7 +210,8 @@ def build():
 </div>
 {''.join(sections)}"""
     with open(os.path.join(DIST, "index.html"), "w", encoding="utf-8") as f:
-        f.write(page(f"{SITE_NAME} — {SITE_DESC}", SITE_DESC + "。電動工具の選び方を規格と公式スペックから解説。", top_body))
+        f.write(page(f"{SITE_NAME} — {SITE_DESC}", SITE_DESC + "。電動工具の選び方を規格と公式スペックから解説。", top_body,
+                     canonical_path="/"))
 
     # 運営者情報
     about = """<article><h1>運営者情報</h1>
@@ -223,7 +227,8 @@ def build():
 <h2>広告について</h2>
 <p>当サイトはアフィリエイトプログラムに参加しています。広告・アフィリエイトリンクには「PR」表記を行い、報酬の有無が記事の評価に影響しない運営を行います。</p></article>"""
     with open(os.path.join(DIST, "about.html"), "w", encoding="utf-8") as f:
-        f.write(page(f"運営者情報 | {SITE_NAME}", "工具えらび堂の運営者情報と編集方針", about, path_label="運営者情報"))
+        f.write(page(f"運営者情報 | {SITE_NAME}", "工具えらび堂の運営者情報と編集方針", about, path_label="運営者情報",
+                     canonical_path="/about"))
 
     # 広告掲載のご案内(メディアガイド)
     ad_count = len(articles)
@@ -292,7 +297,8 @@ def build():
     with open(os.path.join(DIST, "advertise.html"), "w", encoding="utf-8") as f:
         f.write(page(f"広告掲載のご案内 | {SITE_NAME}",
                      "工具えらび堂の広告掲載メニュー・料金・編集方針のご案内。タイアップ記事、PR枠の掲載を承ります。",
-                     adguide, path_label="広告掲載のご案内"))
+                     adguide, path_label="広告掲載のご案内",
+                     canonical_path="/advertise"))
 
     # プライバシーポリシー
     privacy = """<article><h1>プライバシーポリシー</h1>
@@ -300,7 +306,8 @@ def build():
 <p>アクセス解析ツール・広告配信サービスを導入した場合、それらはCookieを使用して匿名のトラフィックデータを収集することがあります。導入時は本ページに追記します。</p>
 <p>制定日: 2026年7月28日</p></article>"""
     with open(os.path.join(DIST, "privacy.html"), "w", encoding="utf-8") as f:
-        f.write(page(f"プライバシーポリシー | {SITE_NAME}", "工具えらび堂のプライバシーポリシー", privacy, path_label="プライバシーポリシー"))
+        f.write(page(f"プライバシーポリシー | {SITE_NAME}", "工具えらび堂のプライバシーポリシー", privacy, path_label="プライバシーポリシー",
+                     canonical_path="/privacy"))
 
     # sitemap.xml(Search Consoleに登録した瞬間に効くよう、記事の更新日を反映する)
     static_pages = [("", None), ("about", None), ("advertise", None), ("privacy", None)]
