@@ -22,6 +22,8 @@ ASSETS = os.path.join(ROOT, "assets")
 SITE_NAME = "工具えらび堂"
 SITE_DESC = "規格と公式スペックで選ぶ、誠実な工具選定ガイド"
 SITE_URL = "https://kougu-erabido.vercel.app"
+# IndexNow のキー。公開情報であり秘密ではない(所有確認はキーファイルの設置で行う)。
+INDEXNOW_KEY = "a7f3c1e94b6d4028ae5b7c0f2d918e63"
 
 META_RE = re.compile(r"<!--META\s*(\{.*?\})\s*META-->", re.DOTALL)
 
@@ -331,6 +333,12 @@ def build():
     robots = f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n"
     with open(os.path.join(DIST, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(robots)
+
+    # IndexNow のキーファイル(Bing等に「更新したURL」を能動的に通知するために必要)
+    # 検索エンジン側は https://<ドメイン>/<キー>.txt を取得し、中身がキーと一致することで
+    # ドメインの所有を確認する。オーナー操作もアカウントも不要な、唯一の能動的な通知手段。
+    with open(os.path.join(DIST, INDEXNOW_KEY + ".txt"), "w", encoding="utf-8") as f:
+        f.write(INDEXNOW_KEY)
 
     print(f"built {len(articles)} articles -> dist/ (sitemap: {len(urls)} URLs)")
 
