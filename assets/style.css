@@ -117,6 +117,12 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
     font-size: .86rem;
     overflow-wrap: anywhere;
   }
+  /* 本文の横あふれ対策。
+     型番をスラッシュで連ねた文字列(例: 9533/9533B/9533BH/…)はブラウザが折り返し位置を作らないため、
+     表の外の本文でもページごと横スクロールしていた
+     (2026-08-07の375px実測で carbon-brush-shitei が68pxはみ出していた。原因は <strong> 内の型番の連なり)。
+     表のセルにだけ入れていた指定を、記事本文にも広げる。 */
+  article p, article li, article td, article th, article strong { overflow-wrap: anywhere; }
 }
 
 /* 記事末尾の販売店導線(アフィリエイト) */
