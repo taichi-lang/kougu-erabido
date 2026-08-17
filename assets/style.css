@@ -117,6 +117,19 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
     font-size: .86rem;
     overflow-wrap: anywhere;
   }
+  /* 列数の多い表は、幅を詰めるより枠内で横スクロールさせるほうが読める。
+     .table-wrap は overflow-x:auto なので、表に最小幅を与えれば枠の内側だけがスクロールし、
+     ページ全体は横あふれしない
+     (2026-08-18の375px実測で、11列の下穴径表が table-layout:fixed のためセル幅30px・
+      行高120pxまで潰れ、「2.46」が縦に割れて表示されていた)。
+     数値が並ぶ表にだけ .wide-table を付けて適用する。文章が入る表には付けない。 */
+  .plain-table.wide-table { table-layout: auto; min-width: 560px; }
+  .plain-table.wide-table th, .plain-table.wide-table td { white-space: nowrap; overflow-wrap: normal; }
+  /* 文章が入る列がある表は、nowrap にすると横に伸びすぎる。
+     折り返しは許したまま最小幅だけ与えて、列が細くなりすぎるのを防ぐ
+     (同日の実測で、4列の種類表が1行355pxの高さになっていた)。 */
+  .plain-table.text-table { table-layout: auto; min-width: 460px; }
+
   /* 本文の横あふれ対策。
      型番をスラッシュで連ねた文字列(例: 9533/9533B/9533BH/…)はブラウザが折り返し位置を作らないため、
      表の外の本文でもページごと横スクロールしていた

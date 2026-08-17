@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ボルトの締付けトルクに「JISの早見表」は無い — 強度区分の規格が明文で除外し、トルクは摩擦で決まっている | 工具えらび堂</title>
+<meta name="description" content="「ボルト 締め付けトルク」の検索補完の先頭は「jis規格」です。ところが強度区分を定めるJIS B 1051:2014は、適用範囲で「トルク又は締付け力の性能」を規定しない項目として明記しています。トルクの決め方を定めるJIS B 1083:2008は、締付けトルクの90%前後が摩擦で消費されること、トルク係数が0.115〜0.543の範囲を取ることを書いています。規格の原文から整理します。">
+<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">
+<link rel="canonical" href="https://kougu-erabido.vercel.app/bolt-shimetsuke-torque-kikaku">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">工具えらび堂</a>
+    <p class="site-desc">規格と公式スペックで選ぶ、誠実な工具選定ガイド</p>
+  </div>
+</header>
+<main class="wrap">
+<nav class="breadcrumb"><a href="/">ホーム</a> &rsaquo; <span>ボルトの締付けトルクに「JISの早見表」は無い — 強度区分の規格が明文で除外し、トルクは摩擦で決まっている</span></nav>
+<p class="article-meta">更新日: 2026-08-18 ／ カテゴリ: 規格辞典</p>
+<article><h1>ボルトの締付けトルクに「JISの早見表」は無い — 強度区分の規格が明文で除外し、トルクは摩擦で決まっている</h1><p>「ボルト 締め付けトルク」で調べると、検索の補完は10本すべてが埋まります。そして<strong>先頭に出るのは「jis規格」</strong>です。<strong>JISのどこかに、呼び径と強度区分でトルク値が引ける表があるはずだ</strong>という前提で探している状態が、そのまま言葉になっています。</p>
+<p>ところが<strong>強度区分を定めている規格の側が、トルクを規定項目から明文で外しています。</strong></p>
+<p>この記事は、<strong>JIS B 1051:2014(強度区分)と JIS B 1083:2008(ねじの締付け通則)の原文を読み、「締付けトルク」が規格ではどう扱われているかを整理する記事</strong>です。当サイトが特定のボルトのトルク値を推奨する記事ではありません。</p>
+
+<div class="point-box"><span class="pb-title">先に結論</span>
+<ul>
+<li><strong>JIS B 1051:2014 は適用範囲で「次に示すような特性に対する要求については規定しない」として、その中に「トルク又は締付け力の性能」を挙げています。</strong>強度区分の規格には、トルクの表はありません</li>
+<li><strong>強度区分の数字は引張強さと降伏応力比です。</strong>8.8 なら呼び引張強さ800 MPa、降伏応力比0.8。<strong>これは材料の性質であって、締め方の指示ではありません</strong></li>
+<li><strong>トルクの決め方を定めているのは JIS B 1083:2008「ねじの締付け通則」です。</strong>ただしこの規格が規定しているのは<strong>「目標値の決め方」</strong>で、値そのものの一覧表ではありません</li>
+<li><strong>同規格は「締付けトルクの90 %前後はねじ面及び座面の摩擦によって消費される」と書いています。</strong>トルクの大半はボルトを引っぱる仕事に使われていません</li>
+<li><strong>同規格の参考表では、トルク係数Kが0.115〜0.543の範囲を取ります。最大は最小の約4.7倍です</strong>(当サイトの割り算)。<strong>トルク=K×呼び径×締付け力なので、同じ軸力を出すためのトルクもこの比で動きます</strong></li>
+<li><strong>トルク法の締付け係数(ばらつきの目安)は1.4〜3と参考値が示されています。</strong>回転角法(塑性域)とトルクこう配法は1.2です</li>
+</ul></div>
+
+<h2>強度区分の規格は、トルクを「規定しない」と書いている</h2>
+<p>まず JIS B 1051:2014(炭素鋼及び合金鋼製締結用部品の機械的性質)の適用範囲です。</p>
+
+<div class="point-box"><span class="pb-title">JIS B 1051:2014 箇条1(適用範囲)の記載(原文)</span>
+<ul>
+<li>「また，次に示すような特性に対する要求については規定しない。」
+<ul>
+<li>− 溶接性</li>
+<li>− 耐食性</li>
+<li>− 耐せん断性</li>
+<li>− <strong>トルク又は締付け力の性能(試験方法については，JIS B 1084参照)</strong></li>
+<li>− 耐疲労性</li>
+</ul></li>
+</ul></div>
+<p class="price-disclaimer">JIS B 1051:2014(ISO 898-1:2013)箇条1 の記載です。</p>
+
+<p><strong>これが答えです。</strong>「強度区分8.8のM10は何N・mで締めるか」という問いに対して、<strong>強度区分の規格は答えを持っていません。</strong>持っていないのではなく、<strong>規定しない項目として名指しで書いています。</strong></p>
+<p>耐せん断性も同じ扱いです。<strong>強度区分は引張りについての区分</strong>で、せん断についての保証ではありません。</p>
+
+<h2>「8.8」の2つの数字が意味しているもの</h2>
+<p>では強度区分は何を保証しているか。規格は箇条5で表し方を定めています。</p>
+
+<div class="point-box"><span class="pb-title">JIS B 1051:2014 箇条5(強度区分の表し方)の記載(原文)</span>
+<ul>
+<li><strong>a)「点の左側の数字は，1桁又は2桁の数字からなり，それらは，呼び引張強さR<sub>m,nom</sub>をMPaで表した数値(表3の番号1)の1/100の値を示す。」</strong></li>
+<li><strong>b)「点の右側の数字は，……呼び降伏応力と呼び引張強さR<sub>m,nom</sub>との比(降伏応力比という)の10倍の値を示す。」</strong></li>
+<li>c)「強度区分表示の左側にゼロが付いたものは，負荷能力が低いおねじ部品を示す」</li>
+<li><strong>例1「呼び引張強さR<sub>m,nom</sub>が800 MPaで，降伏応力比が0.8のおねじ部品の強度区分の表示記号は，8.8となる。」</strong></li>
+<li><strong>「呼び引張強さに降伏応力比を乗じると，呼び降伏応力(単位は，MPa)となる。」</strong></li>
+</ul></div>
+<p class="price-disclaimer">同規格 箇条5 および 表1 の記載です。</p>
+
+<p>そして表3に、区分ごとの機械的性質が並びます。</p>
+
+<div class="table-wrap">
+<table class="plain-table wide-table">
+<tr><th>強度区分</th><th>4.6</th><th>4.8</th><th>5.8</th><th>6.8</th><th>8.8<br>(d≦16)</th><th>10.9</th><th>12.9</th></tr>
+<tr><td><strong>引張強さ R<sub>m</sub>(呼び)MPa</strong></td><td>400</td><td>400</td><td>500</td><td>600</td><td>800</td><td>1 000</td><td>1 200</td></tr>
+<tr><td><strong>引張強さ R<sub>m</sub>(最小)MPa</strong></td><td>400</td><td>420</td><td>520</td><td>600</td><td>800</td><td>1 040</td><td>1 220</td></tr>
+<tr><td><strong>0.2 %耐力 R<sub>p0.2</sub>(呼び)MPa</strong></td><td>−</td><td>−</td><td>−</td><td>−</td><td>640</td><td>900</td><td>1 080</td></tr>
+<tr><td><strong>保証荷重応力 S<sub>p</sub>(呼び)MPa</strong></td><td>225</td><td>310</td><td>380</td><td>440</td><td>580</td><td>830</td><td>970</td></tr>
+<tr><td><strong>ビッカース硬さ HV(最小)</strong></td><td>120</td><td>130</td><td>160</td><td>190</td><td>250</td><td>320</td><td>385</td></tr>
+</table>
+</div>
+<p class="price-disclaimer">JIS B 1051:2014 表3 の記載です。表3には他に下降伏応力・破断伸び・絞り・破壊トルク・衝撃強さなど19項目があります。当サイトが抜き出したのは一部です。「4.6」「5.6」など降伏応力比0.6の区分では、0.2 %耐力ではなく下降伏応力が規定されています。</p>
+
+<p>規格はさらに、<strong>呼び径ごとの「最小極限引張力」</strong>を表4に持っています。これが<strong>ボルト1本が引きちぎれる下限として規格が保証している力</strong>です。</p>
+
+<div class="table-wrap">
+<table class="plain-table wide-table">
+<tr><th>ねじの呼び</th><th>有効断面積 mm²</th><th>4.6</th><th>8.8</th><th>10.9</th><th>12.9</th></tr>
+<tr><td><strong>M6</strong></td><td>20.1</td><td>8 040 N</td><td>16 100 N</td><td>20 900 N</td><td>24 500 N</td></tr>
+<tr><td><strong>M8</strong></td><td>36.6</td><td>14 600 N</td><td>29 200 N</td><td>38 100 N</td><td>44 600 N</td></tr>
+<tr><td><strong>M10</strong></td><td>58</td><td>23 200 N</td><td>46 400 N</td><td>60 300 N</td><td>70 800 N</td></tr>
+<tr><td><strong>M12</strong></td><td>84.3</td><td>33 700 N</td><td>67 400 N</td><td>87 700 N</td><td>103 000 N</td></tr>
+<tr><td><strong>M16</strong></td><td>157</td><td>62 800 N</td><td>125 000 N</td><td>163 000 N</td><td>192 000 N</td></tr>
+</table>
+</div>
+<p class="price-disclaimer">JIS B 1051:2014 表4(最小極限引張力−並目ねじ)の記載です。規格は F<sub>m,min</sub>(A<sub>s,nom</sub>×R<sub>m,min</sub>)と定義しています。</p>
+
+<p><strong>ここまで規格が数字で保証しているのは「力」です。「トルク」は1つも出てきません。</strong></p>
+
+<h2>トルクを決める規格は別にあり、それは「決め方」の規格</h2>
+<p>締付けトルクの目標値を扱うのは <strong>JIS B 1083:2008「ねじの締付け通則」</strong>です。</p>
+
+<div class="point-box"><span class="pb-title">JIS B 1083:2008 箇条1(適用範囲)の記載(原文)</span>
+<ul>
+<li><strong>「この規格は，締結用ねじ部品に対する代表的な締付け管理方法における締付け指標の目標値の決め方及びそれに関連する事項について規定する。」</strong></li>
+</ul></div>
+<p class="price-disclaimer">JIS B 1083:2008 箇条1 の記載です。</p>
+
+<p><strong>「目標値の決め方」</strong>です。値そのものではありません。そして規格は、トルク法の特性をこう書いています。</p>
+
+<div class="point-box"><span class="pb-title">JIS B 1083:2008 6.2.1(トルク法の特性)の記載(原文)</span>
+<ul>
+<li><strong>「しかし，締付けトルクの90 %前後はねじ面及び座面の摩擦によって消費されるため，初期締付け力のばらつきは，締付け作業時の摩擦特性の管理の程度によって大きく変化する。」</strong></li>
+</ul></div>
+<p class="price-disclaimer">同規格 6.2.1 の記載です。</p>
+
+<p><strong>これが「表が作れない」理由です。</strong>レンチにかけた力の9割前後は、ねじ山と座面の摩擦に消えています。<strong>ボルトを引っぱる力になっているのは残りです。</strong>摩擦は表面状態と潤滑で変わるので、<strong>同じボルトでも状態が違えば同じトルクで別の軸力になります。</strong></p>
+
+<h2>トルク係数は0.115〜0.543 — 最大は最小の約4.7倍</h2>
+<p>規格は締付けトルクと締付け力の関係を、トルク係数Kを使って書いています。降伏締付けトルクの式(8)は <strong>T<sub>y</sub> = K<sub>y</sub> F<sub>y</sub> d</strong>(トルク=トルク係数×締付け力×ねじの呼び径)です。</p>
+<p>そして附属書A(参考)に、<strong>ねじ面の摩擦係数μ<sub>th</sub>と座面の摩擦係数μ<sub>b</sub>に対するトルク係数Kの計算例</strong>が表A.1として載っています。</p>
+
+<div class="table-wrap">
+<table class="plain-table wide-table">
+<tr><th>μ<sub>b</sub> ＼ μ<sub>th</sub></th><th>0.08</th><th>0.10</th><th>0.15</th><th>0.20</th><th>0.30</th><th>0.45</th></tr>
+<tr><td><strong>0.08</strong></td><td><strong>0.115</strong></td><td>0.127</td><td>0.159</td><td>0.191</td><td>0.254</td><td>0.349</td></tr>
+<tr><td><strong>0.10</strong></td><td>0.125</td><td>0.138</td><td>0.169</td><td>0.201</td><td>0.264</td><td>0.359</td></tr>
+<tr><td><strong>0.15</strong></td><td>0.151</td><td>0.164</td><td>0.196</td><td>0.227</td><td>0.291</td><td>0.386</td></tr>
+<tr><td><strong>0.20</strong></td><td>0.178</td><td>0.190</td><td>0.222</td><td>0.254</td><td>0.317</td><td>0.412</td></tr>
+<tr><td><strong>0.30</strong></td><td>0.230</td><td>0.243</td><td>0.275</td><td>0.306</td><td>0.370</td><td>0.465</td></tr>
+<tr><td><strong>0.45</strong></td><td>0.309</td><td>0.322</td><td>0.353</td><td>0.385</td><td>0.448</td><td><strong>0.543</strong></td></tr>
+</table>
+</div>
+<p class="price-disclaimer">JIS B 1083:2008 表A.1(ねじ面の摩擦係数μ<sub>th</sub>及び座面の摩擦係数μ<sub>b</sub>に対するトルク係数Kの計算例−並目ねじ，六角ボルト・ナットの場合)の記載です。<strong>規格の表A.1は μ<sub>th</sub>・μ<sub>b</sub> とも0.08〜0.45の10段階</strong>で、当サイトはそのうち6段階分の列・行を抜き出しました。<strong>この附属書は参考であり、規定ではありません。</strong>規格は「トルク係数Kの計算例は，それぞれのねじの呼び径に対するKの平均値を示している」と注記しています。</p>
+
+<p><strong>いちばん小さいKが0.115、いちばん大きいKが0.543です。</strong>その比は<strong>約4.7倍</strong>(当サイトの割り算)。<strong>T = K × F × d なので、同じ締付け力を出すために必要なトルクも、摩擦の状態でこの比だけ動きます。</strong></p>
+<p><strong>買う前・締める前にいちばん効くのはここです。</strong>ネット上の「M10・8.8なら○○N・m」という値は、<strong>ある摩擦条件を前提にした数字</strong>です。<strong>前提が書かれていない数字は、規格の枠組みからいうと、条件の1つが欠けています。</strong></p>
+
+<h2>規格は「管理方法ごとのばらつき」も参考値で示している</h2>
+
+<div class="table-wrap">
+<table class="plain-table">
+<tr><th>締付け管理方法</th><th>締付け指標</th><th>締付けの領域</th><th>締付け係数 Q(参考値)</th></tr>
+<tr><td><strong>トルク法</strong></td><td>締付けトルク</td><td>弾性域</td><td><strong>1.4〜3</strong></td></tr>
+<tr><td rowspan="2"><strong>回転角法</strong></td><td rowspan="2">締付け回転角</td><td>弾性域</td><td>1.5〜3</td></tr>
+<tr><td>塑性域</td><td><strong>1.2</strong></td></tr>
+<tr><td><strong>トルクこう配法</strong></td><td>締付け回転角に対する締付けトルクのこう配</td><td>弾性限界</td><td><strong>1.2</strong></td></tr>
+</table>
+</div>
+<p class="price-disclaimer">JIS B 1083:2008 表2(代表的なねじ締付け管理方法)の記載です。締付け係数Qは規格の定義で「初期締付け力のばらつきを表すための，初期締付け力の最大値と最小値との比」です。注a)に<strong>「実際の締付け力のばらつきは，それぞれの締付け方法に関与する幾つかの固有な因子によって大きく変化するために，その範囲を厳密に示すことはできない」</strong>とあります。</p>
+
+<p><strong>トルク法のQが1.4〜3</strong>というのは、<strong>同じトルクで締めても、出てくる軸力の最大と最小が1.4倍から3倍ひらく</strong>という意味の参考値です。<strong>トルクレンチを使うこと自体は、軸力を一点に決める手段ではありません。</strong></p>
+<p>規格はトルクレンチについても触れています。<strong>「トルク法に用いる締付け用具:JIS B 4650で規定するプレート形，ダイヤル形，プレセット形及び単能形の手動式トルクレンチ又はこれと同等以上の性能をもつ手動式若しくは動力式のレンチを用いる。」</strong>(6.2.3)。そして注記に<strong>「JIS B 4650では，トルクの誤差率を±3 %(ダイヤル形の精密級では±1 %)としている。」</strong>とあります。</p>
+<p><strong>工具の誤差(±3 %)と、締付け方法そのもののばらつき(1.4〜3倍)は、桁が違います。</strong>トルクレンチの精度の話は<a href="/torque-wrench-seido">トルクレンチの精度</a>で扱っています。</p>
+
+<div class="point-box"><span class="pb-title">この記事が言っていないこと</span>
+<ul>
+<li>❌ <strong>「トルク値は決められない」とは言っていません。</strong>JIS B 1083 は決め方を規定しており、設計側が締付け力の上限・下限を与えたうえで目標トルクを求める手順が書かれています</li>
+<li>❌ <strong>「世の中のトルク表が間違い」とも言っていません。</strong>言えるのは、<strong>強度区分の規格にはトルクの表が無く、トルクは摩擦条件込みで決まる</strong>という規格の記載までです</li>
+<li>❌ <strong>当サイトは特定の用途に対するトルク値を示しません。</strong>機械や車両には製造者が指定するトルクがあり、それが優先します</li>
+</ul></div>
+
+<div class="point-box"><span class="pb-title">買う前・締める前に確認すること</span>
+<ul>
+<li>① <strong>機器の製造者が指定するトルクがあるなら、それに従う。</strong>規格は一般則で、個別の指定を置き換えるものではありません</li>
+<li>② <strong>参照するトルク値に、摩擦条件(乾燥/潤滑/めっき)が書かれているかを見る。</strong>書かれていない値は前提が1つ欠けています</li>
+<li>③ <strong>強度区分の刻印を見る。</strong>8.8・10.9・12.9は引張りの区分で、せん断の保証ではありません</li>
+<li>④ <strong>トルクレンチの精度と、締付け方法のばらつきを分けて考える。</strong>規格の参考値では前者が±3 %、後者は1.4〜3倍です</li>
+<li>⑤ <strong>座金の種類も規格が組合せを書いています。</strong>強度区分10.9以下には硬さ区分300 HVという形です(<a href="/zagane-kikaku-jis-b1256">平座金の規格</a>)</li>
+</ul></div>
+
+<p>トルクという量そのものの読み方は<a href="/torque-nm-kihon">N・mの基本</a>、工具側の精度は<a href="/torque-wrench-seido">トルクレンチの精度</a>で扱っています。インパクト工具の「最大トルク」がどういう測定条件つきの数字かは<a href="/neji-shime-nouryoku">ネジ締め能力の読み方</a>と<a href="/impact-wrench-vs-driver">インパクトレンチとインパクトドライバー</a>にあります。<strong>ソケット側の適合</strong>は<a href="/impact-socket-vs-hand">インパクト用ソケットと手動用の違い</a>と<a href="/socket-taihen-size">ソケットの対辺と差込角</a>です。</p>
+<p>ねじの寸法側の規格は<a href="/tap-shitaana-jis-b1004">タップの下穴径(JIS B 1004)</a>と<a href="/zagane-kikaku-jis-b1256">平座金の7種類(JIS B 1256)</a>で扱っています。<strong>「規格が何を保証していて、何を保証していないかを分けて読む」</strong>形の話は、<a href="/nogisu-seido-jis">ノギスの最大許容誤差</a>、<a href="/kyatatsu-hashigo-anzeneisoku">脚立とはしごに法令が定めている数値</a>にもあります。</p>
+
+<div class="sources"><span class="src-title">情報の根拠</span>
+<ul>
+<li>トルク又は締付け力の性能を規定しないことは<strong>JIS B 1051:2014(ISO 898-1:2013)箇条1(適用範囲)</strong> の記載です。</li>
+<li>強度区分の表し方(左側=呼び引張強さの1/100、右側=降伏応力比の10倍)と例1は<strong>同規格 箇条5 および 表1</strong> の記載です。</li>
+<li>引張強さ・0.2 %耐力・保証荷重応力・ビッカース硬さは<strong>同規格 表3</strong>、最小極限引張力と有効断面積は<strong>同規格 表4</strong> の記載です。</li>
+<li>締付け指標の目標値の決め方を規定することは<strong>JIS B 1083:2008「ねじの締付け通則」箇条1</strong>、締付けトルクの90 %前後が摩擦で消費されることは<strong>同規格 6.2.1</strong> の記載です。</li>
+<li>締付け管理方法と締付け係数Qの参考値は<strong>同規格 表2 および注a)</strong>、締付け用具とトルクレンチの誤差率は<strong>同規格 6.2.3 および 6.2.2.1 a) 2)の注1)</strong> の記載です。</li>
+<li>トルク係数Kの計算例は<strong>同規格 附属書A(参考)表A.1</strong>、降伏締付けトルクの式 T<sub>y</sub>=K<sub>y</sub>F<sub>y</sub>d は<strong>同規格 5.4 の式(8)</strong> の記載です。<strong>附属書Aは参考であり、規定ではありません。</strong></li>
+<li>⚠ <strong>「最大は最小の約4.7倍」は、当サイトが表A.1の最大値0.543を最小値0.115で割った値です。</strong>この比の値そのものが規格に書かれているわけではありません。</li>
+<li>⚠ <strong>当サイトが掲載した表A.1は、規格の10×10の表から6行6列を抜き出したものです。</strong>また規格は、この計算例が呼び径ごとのKの平均値であると注記しています。</li>
+<li>⚠ <strong>当サイトは特定のボルトに対する締付けトルク値を示しません。</strong>機器の製造者が指定するトルクがある場合はそれが優先します。掲載しているのは、規格がそう書いているという事実だけです。</li>
+<li>⚠ <strong>本文を読んだのは JIS本文を掲載しているサイト上の版です。</strong>ページの見出しはそれぞれ「JISB1051:2014」「JISB1083:2008」で、B 1051 のまえがきに「これによって，JIS B 1051:2000は改正され，この規格に置き換えられた。」とあります。<strong>同サイトではURLに含まれる年号が版の根拠にならないことを当サイトが実測しているため、版の根拠はページ本文の表記としています。</strong></li>
+<li>価格は掲載していません。当サイトは販売店サイトの数値を仕様の根拠として採用していません。</li>
+<li>当サイトは実機を使用した体験を装った表現を用いません(<a href="/about">編集方針</a>)。</li>
+</ul></div><aside class="shop-block">
+  <span class="pr-tag">PR</span>
+  <p class="shop-lead">この記事で扱ったトルクレンチを実際に探す場合はこちらから。
+  価格と在庫は変動するため、最新の情報は販売サイトでご確認ください。</p>
+  <div class="shop-ctas"><a class="shop-cta shop-rakuten" href="https://hb.afl.rakuten.co.jp/ichiba/5644fda0.ae80063f.5644fda1.c556ee7b/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F%E3%83%88%E3%83%AB%E3%82%AF%E3%83%AC%E3%83%B3%E3%83%81%20%E3%83%97%E3%83%AC%E3%82%BB%E3%83%83%E3%83%88%E5%9E%8B%20%E5%B7%AE%E8%BE%BC%E8%A7%9212.7mm%2F&amp;link_type=text" rel="sponsored nofollow" target="_blank">楽天市場で「トルクレンチ プレセット型 差込角12.7mm」を見る</a><a class="shop-cta shop-amazon" href="https://www.amazon.co.jp/s?k=%E3%83%88%E3%83%AB%E3%82%AF%E3%83%AC%E3%83%B3%E3%83%81%20%E3%83%97%E3%83%AC%E3%82%BB%E3%83%83%E3%83%88%E5%9E%8B%20%E5%B7%AE%E8%BE%BC%E8%A7%9212.7mm&amp;tag=kouguerabido-22" rel="sponsored nofollow" target="_blank">Amazonで「トルクレンチ プレセット型 差込角12.7mm」を見る</a></div>
+  <p class="shop-note">上記リンクは広告(アフィリエイト)です。リンク経由での購入により当サイトに紹介料が発生する場合がありますが、
+  掲載内容の選定・評価は紹介料の有無とは無関係に、メーカー公式スペックに基づいて行っています。</p>
+</aside></article>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>当サイトは、規格・メーカー公式スペック等の一次情報に基づいて工具の選び方を解説するサイトです。実機の使用体験を装ったレビューは掲載していません。</p>
+    <p>当サイトはアフィリエイトプログラムに参加しており、記事内のリンクを経由した購入により報酬を得ることがあります。広告リンクには「PR」表記を行っています。</p>
+    <p>Amazonのアソシエイトとして、工具えらび堂は適格販売により収入を得ています。</p>
+    <nav><a href="/about">運営者情報</a> ／ <a href="/advertise">広告掲載のご案内</a> ／ <a href="/privacy">プライバシーポリシー</a></nav>
+    <p>&copy; 2026 工具えらび堂</p>
+  </div>
+</footer>
+<script src="/assets/sort.js"></script>
+</body>
+</html>
