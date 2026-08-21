@@ -205,7 +205,7 @@ def build():
             f'<li><a href="/{a["slug"]}">{a["title"]}</a><span class="li-desc">{a["description"]}</span></li>'
             for a in sorted(items, key=lambda x: x["date"], reverse=True))
         sections.append(f'<section class="cat-block"><h2>{cat}</h2><ul class="article-list">{lis}</ul></section>')
-    top_body = pr_slot(ads, "home_top") + f"""
+    top_body = f"""<h1 class="site-h1">{SITE_NAME} — {SITE_DESC}</h1>""" + pr_slot(ads, "home_top") + f"""
 <div class="site-intro">
   <p>{SITE_NAME}は、「使ってみた」ではなく<strong>規格とメーカー公式スペック</strong>で工具を選ぶためのガイドです。
   電圧・トルク・チャック径といった数字の意味から、用途別の選定手順までを、一次情報に基づいて解説します。</p>
