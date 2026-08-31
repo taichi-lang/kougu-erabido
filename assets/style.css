@@ -44,6 +44,10 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
 .point-box .pb-title { font-weight: 700; color: var(--steel); display: block; margin-bottom: .3rem; }
 .point-box ul { margin: 0; padding-left: 1.3rem; }
 
+/* 規格原文の引用 — 当サイトの文と原文を見た目で分ける */
+.quote-box { border-left: 4px solid var(--steel); background: #fafafa; padding: .55rem 1rem; margin: 1rem 0; }
+.quote-box p { margin: 0; }
+
 /* PR枠(上部) — ステマ規制対応の明示ラベル */
 .pr-slot { background: var(--pr-bg); border: 1px solid #e8cfa0; border-radius: 6px; padding: .6rem .9rem; margin: 14px 0 4px; font-size: .9rem; }
 .pr-tag { display: inline-block; background: #8a6d3b; color: #fff; font-size: .68rem; padding: 0 .45em; border-radius: 3px; margin-right: .7em; vertical-align: middle; }

@@ -123,6 +123,13 @@ def product_table(products):
 def page(title, description, body, path_label=None, is_article=False, meta=None,
          canonical_path=""):
     canonical = f'\n<link rel="canonical" href="{SITE_URL}{canonical_path}">' if canonical_path else ""
+    # OGP / Twitter カード。文言は新しく書かず、既存の title / description をそのまま使う。
+    og = ""
+    if canonical_path:
+        og = (f'\n<meta property="og:title" content="{title}">'
+              f'\n<meta property="og:description" content="{description}">'
+              f'\n<meta property="og:url" content="{SITE_URL}{canonical_path}">'
+              f'\n<meta name="twitter:card" content="summary">')
     breadcrumb = ""
     if path_label:
         breadcrumb = f'<nav class="breadcrumb"><a href="/">ホーム</a> &rsaquo; <span>{path_label}</span></nav>'
@@ -136,7 +143,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}
+<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}{og}
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
@@ -158,6 +165,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
     <p>当サイトはアフィリエイトプログラムに参加しており、記事内のリンクを経由した購入により報酬を得ることがあります。広告リンクには「PR」表記を行っています。</p>
     <p>Amazonのアソシエイトとして、{SITE_NAME}は適格販売により収入を得ています。</p>
     <nav><a href="/about">運営者情報</a> ／ <a href="/advertise">広告掲載のご案内</a> ／ <a href="/privacy">プライバシーポリシー</a></nav>
+    <nav class="sister-sites">姉妹サイト: <a href="https://seido-web.vercel.app">星導 -Seido-</a> ／ <a href="https://seal-generator.vercel.app">会社印ジェネレーター</a> ／ <a href="https://invoice-tool-kohl.vercel.app">請求書作成ツール</a></nav>
     <p>&copy; 2026 {SITE_NAME}</p>
   </div>
 </footer>
