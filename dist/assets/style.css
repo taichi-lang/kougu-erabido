@@ -152,3 +152,13 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
 .shop-amazon { background: #e08d1c; }
 .shop-note { margin: .9rem 0 0; font-size: .78rem; line-height: 1.65; color: #6b6b66; }
 @media (max-width: 480px) { .shop-cta { display: block; width: 100%; text-align: center; } }
+
+/* 見積依頼(主導線)。アフィリエイト枠より上に置き、PR枠とは見た目を分ける。 */
+.quote-block { border: 1px solid #cfd8dc; border-top: 3px solid #2f5d7c; border-radius: 6px; padding: 1rem 1.1rem 1.1rem; margin: 2.4rem 0 .5rem; background: #f6f9fb; }
+.quote-title { margin: 0 0 .5rem; font-size: 1.05rem; font-weight: 700; color: #23485f; }
+.quote-lead { margin: .5rem 0 .9rem; font-size: .95rem; line-height: 1.75; }
+.quote-ctas { display: flex; flex-wrap: wrap; gap: .6rem; }
+.quote-cta { display: inline-block; padding: .7em 1.4em; border-radius: 5px; font-weight: 600; font-size: .95rem; text-decoration: none; color: #fff; background: #2f5d7c; }
+.quote-cta:hover { opacity: .88; }
+.quote-note { margin: .9rem 0 0; font-size: .78rem; color: #6b6b66; line-height: 1.7; }
+@media (max-width: 480px) { .quote-cta { display: block; width: 100%; text-align: center; } }

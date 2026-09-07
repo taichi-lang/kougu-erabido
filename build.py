@@ -86,6 +86,62 @@ def shop_block(ads, meta):
 </aside>"""
 
 
+def quote_block(ads, meta):
+    """記事の本文直後に「見積を依頼する」導線を出す。主導線であり、アフィリエイトより先に置く。
+
+    ads.json の quote.url が入っていればそこへ、空なら quote.email への mailto へ送る。
+    どちらも空なら何も描画しない(偽リンクを作らないため)。
+    mailto の本文には、記事のURLと、見積に必要な項目の記入欄をあらかじめ入れておく。
+    ⚠ 納期・在庫・金額を約束する文言は書かない。書けるのは「メールで受け付ける」までである。
+    """
+    import urllib.parse
+    q = ads.get("quote") or {}
+    url = q.get("url", "")
+    email = q.get("email", "")
+
+    article_url = SITE_URL + "/" + meta["slug"]
+    if url:
+        href = f"{url}?ref=kougu-erabido&slug={urllib.parse.quote(meta['slug'])}"
+        cta_label = "見積を依頼する"
+    elif email:
+        subject = f"見積依頼(工具えらび堂 / {meta['slug']})"
+        body = "\n".join([
+            "工具えらび堂の記事を見て、見積をお願いします。",
+            "",
+            "■ 品名・型番(分かる範囲で)",
+            "",
+            "■ 数量",
+            "",
+            "■ 希望納期",
+            "",
+            "■ お届け先(都道府県だけでも可)",
+            "",
+            "■ 御社名・ご担当者名・ご連絡先",
+            "",
+            "─────────────",
+            "参照した記事: " + meta["title"],
+            article_url,
+            "",
+        ])
+        href = ("mailto:" + email
+                + "?subject=" + urllib.parse.quote(subject)
+                + "&body=" + urllib.parse.quote(body)).replace("&", "&amp;")
+        cta_label = "メールで見積を依頼する"
+    else:
+        return ""
+
+    what = meta.get("shop_label") or meta.get("shop_keyword") or "工具"
+    return f"""<aside class="quote-block">
+  <p class="quote-title">型番が決まっているなら、見積を取れます</p>
+  <p class="quote-lead">当サイトの運営元は機械工具の商社です。この記事で扱った{what}を含め、
+  <strong>型番と数量を書いて送るだけ</strong>で見積をお出しします。法人・個人事業主のお客様が対象です。
+  型番が決まっていない場合も、用途と条件を書いていただければご相談を承ります。</p>
+  <div class="quote-ctas"><a class="quote-cta" href="{href}">{cta_label}</a></div>
+  <p class="quote-note">見積は無料です。金額・納期は、お問い合わせの内容を確認したうえでお返事にてご案内します。
+  この場で在庫・価格・納期をお約束するものではありません。</p>
+</aside>"""
+
+
 def product_table(products):
     if not products:
         return ""
@@ -194,7 +250,8 @@ def build():
         body = raw[m.end():].strip()
         body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", [])))
         full = (pr_slot(ads, "article_top")
-                + f"<article><h1>{meta['title']}</h1>" + body + shop_block(ads, meta)
+                + f"<article><h1>{meta['title']}</h1>" + body
+                + quote_block(ads, meta) + shop_block(ads, meta)
                 + "</article>")
         html = page(f"{meta['title']} | {SITE_NAME}", meta["description"], full,
                     path_label=meta["title"], is_article=True, meta=meta,
