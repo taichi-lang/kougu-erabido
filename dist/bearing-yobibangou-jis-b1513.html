@@ -227,5 +227,9 @@
   </div>
 </footer>
 <script src="/assets/sort.js"></script>
+<!-- アクセス計測(Vercel Web Analytics)。静的サイトなので公式の script タグ方式を使う。
+     Vercel 側で Web Analytics を有効にするまで /_vercel/insights/script.js は 404 を返し、
+     その間このタグは何も送らない。ページの表示には影響しない(defer・失敗しても無視される)。 -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
