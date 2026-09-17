@@ -7,11 +7,13 @@ articles/*.html(先頭に <!--META {json} META--> ブロック)を読み、
 - 商品比較テーブルはMETAのproductsから生成し、価格/メーカー/スペックで並び替え可能
 - PR枠は ads.json に実在の広告がある場合のみ描画(空なら何も出さない=偽リンクを作らない)
 - 商品リンクも links が空なら描画しない(アフィリエイト提携後に実URLを差し込む)
+- 構造化データは Article と BreadcrumbList のみ。表示していないものを宣言しない
 """
 import json
 import os
 import re
 import shutil
+import urllib.parse
 from datetime import date
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -142,14 +144,38 @@ def quote_block(ads, meta):
 </aside>"""
 
 
-def product_table(products):
+def product_links(ads, p):
+    """比較表の1行ぶんの販売店リンクを作る。
+
+    links に実URLが入っていればそれを使う(個別提携先など)。
+    入っていなければ、ads.json のアフィリエイト雛形から
+    「メーカー名 型番」での検索リンクを作る。
+
+    なぜ自動生成するか:
+      型番まで決めた読者を受けるのが比較表であり、ここが最も換金力の高い位置になる。
+      手で1件ずつURLを入れるまで「リンク準備中」で放置すると、その位置が死ぬ。
+      検索リンクは実在のURLなので、偽リンクを作らない方針には反しない。
+    """
+    explicit = [l for l in p.get("links", []) if l.get("url")]
+    if explicit:
+        return explicit
+    q = urllib.parse.quote(f"{p.get('maker','')} {p.get('model','')}".strip())
+    out = []
+    for key, label in (("rakuten", "楽天市場"), ("amazon", "Amazon")):
+        tmpl = (ads.get(key) or {}).get("affiliate_url_template", "")
+        if tmpl:
+            out.append({"label": label, "url": tmpl.replace("{q}", q)})
+    return out
+
+
+def product_table(products, ads):
     if not products:
         return ""
     rows = []
     for p in products:
         links = "".join(
-            f'<a href="{l["url"]}" rel="sponsored nofollow" target="_blank" class="shop-link">{l["label"]}</a>'
-            for l in p.get("links", []) if l.get("url")
+            f'<a href="{l["url"].replace("&", "&amp;")}" rel="sponsored nofollow" target="_blank" class="shop-link">{l["label"]}</a>'
+            for l in product_links(ads, p)
         ) or '<span class="muted">リンク準備中</span>'
         rows.append(f"""      <tr data-price="{p['price']}" data-maker="{p['maker']}" data-feature="{p['feature']}">
         <td class="td-maker">{p['maker']}</td>
@@ -176,6 +202,49 @@ def product_table(products):
 <p class="price-disclaimer">※ 価格は編集部調査による目安(記事更新日時点)です。実際の販売価格は店舗・時期により変動します。スペックは各メーカー公式サイトの公表値に基づきます。</p>"""
 
 
+def jsonld(title, description, canonical_path, path_label=None, meta=None):
+    """構造化データ(JSON-LD)を出す。
+
+    出すのは Article と BreadcrumbList の2つだけ。
+    - パンくずは画面にも出しているので、表示内容と一致する(不一致は手動対策の対象になる)
+    - FAQ は 2023年8月以降リッチリザルトの対象外(政府・医療系を除く)なので入れない
+    - 比較表に Product / Offer は付けない。掲載価格は「編集部調査の目安」であり、
+      販売店の実売価格と一致しないため。一致しない価格を構造化データで宣言しない。
+    """
+    if not canonical_path:
+        return ""
+    url = SITE_URL + canonical_path
+    graph = []
+    if meta:
+        graph.append({
+            "@type": "Article",
+            "headline": meta["title"],
+            "description": meta["description"],
+            "datePublished": meta["date"],
+            "dateModified": meta["date"],
+            "inLanguage": "ja",
+            "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+            "author": {"@type": "Person", "name": "中村太一"},
+            "publisher": {"@type": "Organization", "name": SITE_NAME,
+                          "url": SITE_URL},
+        })
+    # パンくずは画面に出ているページ(=path_labelがあるページ)にだけ付ける。
+    # トップページに「ホーム」1件だけのパンくずを宣言しない。
+    if path_label:
+        graph.append({"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": SITE_URL + "/"},
+            {"@type": "ListItem", "position": 2, "name": path_label, "item": url},
+        ]})
+    if not graph:
+        return ""
+
+    data = {"@context": "https://schema.org", "@graph": graph}
+    # </script> でスクリプトが閉じてしまうのを防ぐ
+    body = json.dumps(data, ensure_ascii=False, indent=2).replace("</", "<\/")
+    return ('\n<script type="application/ld+json">\n'
+            + body + '\n</script>')
+
+
 def page(title, description, body, path_label=None, is_article=False, meta=None,
          canonical_path=""):
     canonical = f'\n<link rel="canonical" href="{SITE_URL}{canonical_path}">' if canonical_path else ""
@@ -186,6 +255,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
               f'\n<meta property="og:description" content="{description}">'
               f'\n<meta property="og:url" content="{SITE_URL}{canonical_path}">'
               f'\n<meta name="twitter:card" content="summary">')
+    ld = jsonld(title, description, canonical_path, path_label, meta if is_article else None)
     breadcrumb = ""
     if path_label:
         breadcrumb = f'<nav class="breadcrumb"><a href="/">ホーム</a> &rsaquo; <span>{path_label}</span></nav>'
@@ -199,7 +269,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}{og}
+<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}{og}{ld}
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
@@ -252,7 +322,7 @@ def build():
             raise ValueError(f"METAブロックがありません: {fname}")
         meta = json.loads(m.group(1))
         body = raw[m.end():].strip()
-        body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", [])))
+        body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", []), ads))
         full = (pr_slot(ads, "article_top")
                 + f"<article><h1>{meta['title']}</h1>" + body
                 + quote_block(ads, meta) + shop_block(ads, meta)
@@ -374,8 +444,14 @@ def build():
     # プライバシーポリシー
     privacy = """<article><h1>プライバシーポリシー</h1>
 <p>当サイトは、お問い合わせ対応以外で個人情報を取得しません。</p>
-<p>アクセス解析ツール・広告配信サービスを導入した場合、それらはCookieを使用して匿名のトラフィックデータを収集することがあります。導入時は本ページに追記します。</p>
-<p>制定日: 2026年7月28日</p></article>"""
+<h2>アクセス解析について</h2>
+<p>当サイトは全ページに Vercel Web Analytics の計測タグを設置しています。これは Cookie を使わない方式の計測で、当サイトは氏名・メールアドレスなど個人を特定できる情報をこの計測から取得しません。</p>
+<p>2026年9月18日時点では、Vercel 側の機能が有効化されていないため、このタグは実際には何も送信していません(計測スクリプトが配信されていないことを当方で確認しています)。有効化後はこの段落を削除します。</p>
+<h2>アフィリエイトリンクについて</h2>
+<p>当サイトは楽天アフィリエイトおよび Amazon アソシエイト・プログラムに参加しており、記事内に広告(アフィリエイトリンク)を掲載しています。リンクをクリックして遷移した先では、各社の定めに従って Cookie が使用される場合があります。取得・利用の範囲は各社のプライバシーポリシーによります。</p>
+<h2>お問い合わせ</h2>
+<p>お問い合わせでいただいた情報は、返信の目的以外には利用しません。</p>
+<p>制定日: 2026年7月28日 / 改定日: 2026年9月18日</p></article>"""
     with open(os.path.join(DIST, "privacy.html"), "w", encoding="utf-8") as f:
         f.write(page(f"プライバシーポリシー | {SITE_NAME}", "工具えらび堂のプライバシーポリシー", privacy, path_label="プライバシーポリシー",
                      canonical_path="/privacy"))

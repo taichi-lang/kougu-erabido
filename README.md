@@ -26,6 +26,48 @@ python build.py
 python -m http.server 8890 --directory dist
 ```
 
+## 週次ルーティーン
+
+方針と判断基準は Obsidian の `20_Projects/工具えらび堂 事業方針.md` にある。ここには手順だけを置く。
+
+```bash
+python audit.py            # 全体サマリと改修候補(比較表が無い記事)
+python audit.py --all      # 全記事を1行ずつ
+python audit.py --gate     # 編集方針ゲート。違反があれば終了コード1
+```
+
+公開はこの順序で行う。IndexNow のキーファイルを本番に出してから送信しないと 403 になる。
+
+```bash
+python build.py && vercel deploy --prod && python indexnow_submit.py
+```
+
+直したことは `notes/rewrite-log.md` に1行ずつ残す。記録が無いとリライトの成否を判定できない。
+
+## 比較表(アフィリエイトの主戦場)
+
+記事の META に `products` を3〜5件入れ、本文の該当箇所に `{{PRODUCT_TABLE}}` を置く。
+
+```json
+{
+  "maker": "マキタ", "model": "TD173D", "feature": "総合力",
+  "spec": "メーカー公式の公表スペックだけを書く",
+  "price": 26000, "price_note": "本体のみ・2026年7月調査の目安"
+}
+```
+
+**販売店リンクは書かなくてよい。** `links` が空なら、`ads.json` のアフィリエイト雛形から
+「メーカー名 型番」での検索リンク(楽天・Amazon)が自動生成される。
+個別提携先など特定のURLを出したいときだけ `links` に実URLを書く。
+
+## 構造化データ
+
+`Article` と `BreadcrumbList` のみを出力する。
+
+- パンくずは画面にも表示しているページにだけ付ける(表示と構造化データの不一致は手動対策の対象)
+- FAQ は付けない(2023年8月以降、政府・医療系以外はリッチリザルトの対象外)
+- 比較表に `Product` / `Offer` は付けない。掲載価格は編集部調査の目安であり、販売店の実売価格と一致しないため
+
 ## 記事の追加
 
 `articles/<slug>.html` を作成する。先頭に `<!--META {json} META-->` ブロック(タイトル・説明・日付・カテゴリ・商品データ)、続けて本文HTMLを書く。`{{PRODUCT_TABLE}}` と書いた位置に、METAの `products` から並び替え対応の比較テーブルが生成される。
