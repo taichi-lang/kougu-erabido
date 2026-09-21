@@ -88,8 +88,16 @@ def shop_block(ads, meta):
 </aside>"""
 
 
-def quote_block(ads, meta):
+def quote_block(ads, meta, body=""):
     """記事の本文直後に「見積を依頼する」導線を出す。主導線であり、アフィリエイトより先に置く。
+
+    ⚠ 2026-09-22、文面を記事の文脈で2種類に分けた。理由:
+      85本を数えたところ、本文でJIS/ISOの規格番号を名指ししている記事が57本、
+      1つも名指ししていない記事が27本(電動工具の機種比較など)あった。
+      それまでの文面は全記事で「型番が決まっているなら」で始まっていたが、
+      後者の27本は読者が型番を持っていない前提の記事であり、1行目が記事と食い違っていた。
+      → 規格番号を名指ししている記事では従来どおり「型番」から入り、
+        していない記事では「本数・用途」から入る。送り先も受付内容も変えていない。
 
     ads.json の quote.url が入っていればそこへ、空なら quote.email への mailto へ送る。
     どちらも空なら何も描画しない(偽リンクを作らないため)。
@@ -97,6 +105,11 @@ def quote_block(ads, meta):
     ⚠ 納期・在庫・金額を約束する文言は書かない。書けるのは「メールで受け付ける」までである。
     """
     import urllib.parse
+
+    # ⚠ 本文が規格番号(JIS/ISO)を名指ししているかは、ここで先に確定させる。
+    # 下の mailto 組み立てでローカル変数 body を作るため、後ろで見ると引数が上書きされている。
+    spec_named = bool(re.search(r"JIS\s*[A-Z]\s*\d{4}|ISO\s*\d{3,5}", body))
+
     q = ads.get("quote") or {}
     url = q.get("url", "")
     email = q.get("email", "")
@@ -133,11 +146,23 @@ def quote_block(ads, meta):
         return ""
 
     what = meta.get("shop_label") or meta.get("shop_keyword") or "工具"
+
+    if spec_named:
+        title_line = "型番が決まっているなら、見積を取れます"
+        lead = (f"当サイトの運営元は機械工具の商社です。この記事で扱った{what}を含め、"
+                "<strong>型番と数量を書いて送るだけ</strong>で見積をお出しします。"
+                "法人・個人事業主のお客様が対象です。"
+                "型番が決まっていない場合も、用途と条件を書いていただければご相談を承ります。")
+    else:
+        title_line = "現場でまとめて要るなら、見積を取れます"
+        lead = (f"当サイトの運営元は機械工具の商社です。この記事で扱った{what}は、"
+                "<strong>機種が決まっていなくても、用途と本数を書いていただければ</strong>見積をお出しします。"
+                "法人・個人事業主のお客様が対象です。"
+                "型番が決まっている場合は、型番と数量だけで結構です。")
+
     return f"""<aside class="quote-block">
-  <p class="quote-title">型番が決まっているなら、見積を取れます</p>
-  <p class="quote-lead">当サイトの運営元は機械工具の商社です。この記事で扱った{what}を含め、
-  <strong>型番と数量を書いて送るだけ</strong>で見積をお出しします。法人・個人事業主のお客様が対象です。
-  型番が決まっていない場合も、用途と条件を書いていただければご相談を承ります。</p>
+  <p class="quote-title">{title_line}</p>
+  <p class="quote-lead">{lead}</p>
   <div class="quote-ctas"><a class="quote-cta" href="{href}">{cta_label}</a></div>
   <p class="quote-note">見積は無料です。金額・納期は、お問い合わせの内容を確認したうえでお返事にてご案内します。
   この場で在庫・価格・納期をお約束するものではありません。</p>
@@ -325,7 +350,7 @@ def build():
         body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", []), ads))
         full = (pr_slot(ads, "article_top")
                 + f"<article><h1>{meta['title']}</h1>" + body
-                + quote_block(ads, meta) + shop_block(ads, meta)
+                + quote_block(ads, meta, body) + shop_block(ads, meta)
                 + "</article>")
         html = page(f"{meta['title']} | {SITE_NAME}", meta["description"], full,
                     path_label=meta["title"], is_article=True, meta=meta,
