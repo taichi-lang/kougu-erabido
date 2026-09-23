@@ -16,6 +16,8 @@
     説明文     … 120文字前後か
     体験表現   … 「使ってみた」等。この事業では書かない(編集方針の芯)
     alt        … 画像のalt。空にしない(直上の見出しの文言を入れる方針)
+    新規記事   … NEW_ARTICLE_SINCE 以降の記事は比較表(products 3件以上)が必須。
+                 既存記事は改修のバックログなので対象外
 """
 import json
 import os
@@ -25,6 +27,12 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 ARTICLES = os.path.join(ROOT, "articles")
 META_RE = re.compile(r"<!--META\s*(\{.*?\})\s*META-->", re.DOTALL)
+
+# この日以降の日付を持つ記事は「新規記事」として扱い、比較表を必須にする。
+# 既存記事(これより前)は改修のバックログなので対象外。
+# → 事業方針「差し込み標準」に対応する機械チェック。
+NEW_ARTICLE_SINCE = "2026-09-23"
+MIN_PRODUCTS = 3
 
 TITLE_MAX = 32
 DESC_MIN, DESC_MAX = 90, 130
@@ -112,6 +120,16 @@ def gate(rows):
         if not r["shop_kw"]:
             bad = True
             print(f"[導線なし] {r['slug']}: shop_keyword が空(末尾の商品導線が出ない)")
+        # 新規記事は比較表を付けて出す。これが無い記事はアフィリエイトの主戦場が空のまま公開される。
+        if r["date"] >= NEW_ARTICLE_SINCE:
+            if not r["has_table"]:
+                bad = True
+                print(f"[新規に表なし] {r['slug']}: {NEW_ARTICLE_SINCE}以降の記事は"
+                      "本文に{{PRODUCT_TABLE}}を置く(比較表が最も換金力が高い位置)")
+            elif r["products"] < MIN_PRODUCTS:
+                bad = True
+                print(f"[商品が少ない] {r['slug']}: products が{r['products']}件。"
+                      f"新規記事は{MIN_PRODUCTS}件以上入れる")
     if not bad:
         print("違反なし。")
     return bad
