@@ -55,3 +55,17 @@ JSON.stringify({pages,stopped,distinct:urls.size,urls:[...urls].sort()},null,1)
 ## 測ったときに残すもの
 
 `distinct` の値 / `pages` と `stopped` / sitemap の URL 数 / **増減の理由**（記事本数ではなく）
+
+### ⚠ URL 一覧を必ず保存する（2026-09-26 追加）
+
+**09-25 は件数（40）だけを記録し、URL 一覧を捨てた。**
+翌日 45 に増えたが、**増えた5件がどれかを特定できなかった。**
+→ 以後、JS の戻り値の `urls` を **`notes/index-log/<YYYY-MM-DD>_ddg.txt`（1行1URL）** に保存する。
+
+突き合わせは次の1本で再現できる（カテゴリ・追加時期・文字数・被リンク数の出現率と、出ていない記事の一覧）:
+
+```bash
+python index_gap.py notes/index-log/2026-09-26_ddg.txt
+```
+
+**これまでに分かったことは `index-gap.md`。**
