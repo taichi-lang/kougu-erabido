@@ -12,3 +12,5 @@
 | 2026-09-23 | impact-vs-drill | 購買意図が高いのに比較表が無く、アフィリエイトの主戦場が空だった | HiKOKI公式の公表値で比較表を追加（WH18DE／DS18DE／DV18DE）。締付トルクの測定条件の違いも本文に明示 | — |
 | 2026-09-23 | 新規3本 | 新規記事に比較表が入らないまま増えると、84本と同じ状態を繰り返す | 比較表つきで3本公開（grinder-100-vs-125／marunoko-165-fukagiri／torque-wrench-range-erabikata）。audit.py に新規記事ゲートを追加 | — |
 | 2026-09-24 | 既存3本 | 新規3本への被リンクが記事側から0件で、索引に載る経路が index だけだった | 同カテゴリの既存記事の本文中に1文ずつ足して内部リンクを張った(grinder-toishi-size／maruno-ko-blade-size／torque-wrench-seido) | — |
+| 2026-09-27 | impact-wrench-vs-driver | 購買意図が高いのに比較表が無かった（改修キュー順1） | 比較表（WH18DE／WR18DH／WR36DE）を追加。ゆるめトルクがレンチ側にしかない項目であることを明示 | — |
+| 2026-09-27 | 新規3本 | 9/24〜9/26が0本で止まっていた | 比較表つきで3本公開（grinder-ac-vs-cordless／shujinki-rendou-consent／impact-wrench-18v-vs-36v） | — |
