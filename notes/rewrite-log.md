@@ -14,3 +14,5 @@
 | 2026-09-24 | 既存3本 | 新規3本への被リンクが記事側から0件で、索引に載る経路が index だけだった | 同カテゴリの既存記事の本文中に1文ずつ足して内部リンクを張った(grinder-toishi-size／maruno-ko-blade-size／torque-wrench-seido) | — |
 | 2026-09-27 | impact-wrench-vs-driver | 購買意図が高いのに比較表が無かった（改修キュー順1） | 比較表（WH18DE／WR18DH／WR36DE）を追加。ゆるめトルクがレンチ側にしかない項目であることを明示 | — |
 | 2026-09-27 | 新規3本 | 9/24〜9/26が0本で止まっていた | 比較表つきで3本公開（grinder-ac-vs-cordless／shujinki-rendou-consent／impact-wrench-18v-vs-36v） | — |
+| 2026-09-29 | makita-10v-vs-18v | 購買意図が高いのに比較表が無かった（改修キュー順1） | マキタ公式の公表値で比較表を追加（TD090D／TD111D／TD173D）。同じ10.8Vでも差込式とスライド式で別機種になることを表で示した。表と矛盾していた「数値の断定を行っていない」の根拠注記を出典の説明に差し替え | — |
+| 2026-09-29 | 新規3本 | 固定枠（3本＋改修1本）に戻した初日 | 比較表つきで3本公開（reciprocating-saw-erabikata／multi-tool-erabikata／hammer-drill-18v-vs-36v）。被リンク0件を避けるため既存3本の本文に1文ずつ足した（recipro-blade-erabikata／multitool-blade-torituke／shindou-drill-vs-hammer-drill） | — |
