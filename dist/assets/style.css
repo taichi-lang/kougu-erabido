@@ -162,3 +162,12 @@ strong { background: linear-gradient(transparent 65%, #ffe3c2 65%); }
 .quote-cta:hover { opacity: .88; }
 .quote-note { margin: .9rem 0 0; font-size: .78rem; color: #6b6b66; line-height: 1.7; }
 @media (max-width: 480px) { .quote-cta { display: block; width: 100%; text-align: center; } }
+
+/* ディスプレイ広告枠
+   - 読み込み前に min-height で領域を確保する(CLS対策)。高さは build.py 側の inline style で入る
+   - 比較表・見積導線と見分けがつくよう、枠線と地色を別にする
+     (AdSenseポリシー: 広告の近くに誤解を招く表示を置かない)
+   - クリックを誘導する文言・矢印は置かない。ラベルは「広告」だけ */
+.ad-slot { margin: 2.4rem 0 .5rem; padding: .5rem 0 0; border-top: 1px dashed #d8d8d4; }
+.ad-label { display: block; font-size: .68rem; color: #9a9a95; letter-spacing: .04em; margin-bottom: .4rem; }
+.ad-slot ins { display: block; }

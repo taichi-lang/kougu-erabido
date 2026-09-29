@@ -8,6 +8,8 @@ articles/*.html(先頭に <!--META {json} META--> ブロック)を読み、
 - PR枠は ads.json に実在の広告がある場合のみ描画(空なら何も出さない=偽リンクを作らない)
 - 商品リンクも links が空なら描画しない(アフィリエイト提携後に実URLを差し込む)
 - 構造化データは Article と BreadcrumbList のみ。表示していないものを宣言しない
+- ディスプレイ広告は ads.json の adsense.client が空なら枠もスクリプトも出さない
+  (CLS対策で min-height を先に確保する。PR記事では出さない)
 """
 import json
 import os
@@ -227,6 +229,54 @@ def product_table(products, ads):
 <p class="price-disclaimer">※ 価格は編集部調査による目安(記事更新日時点)です。実際の販売価格は店舗・時期により変動します。スペックは各メーカー公式サイトの公表値に基づきます。</p>"""
 
 
+def adsense_client(ads):
+    """ディスプレイ広告のクライアントID。未設定なら空文字。
+
+    ads.json の adsense.client に "ca-pub-..." が入るまで、
+    枠もスクリプトも一切出さない(既存の「url が空なら描画しない」と同じ方針)。
+    """
+    return ((ads.get("adsense") or {}).get("client") or "").strip()
+
+
+def adsense_head(ads):
+    """<head> に入れる AdSense のスクリプト。IDが無ければ何も出さない。"""
+    client = adsense_client(ads)
+    if not client:
+        return ""
+    return ('\n<script async '
+            f'src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={client}"'
+            ' crossorigin="anonymous"></script>')
+
+
+def ad_slot(ads, place, meta=None):
+    """ディスプレイ広告枠を1つ描画する。
+
+    place: "article_mid" | "article_bottom" | "sidebar"
+    meta:  記事のMETA。meta["pr"] が真なら描画しない(PR記事では出さない)。
+
+    CLS対策として、読み込み前に min-height で領域を確保する。
+    高さは ads.json の adsense.heights で上書きできる。
+    """
+    client = adsense_client(ads)
+    if not client:
+        return ""
+    if meta and meta.get("pr"):
+        # PR記事(メーカー課金)に競合の広告が出ないようにする
+        return ""
+    conf = ads.get("adsense") or {}
+    slot = ((conf.get("slots") or {}).get(place) or "").strip()
+    if not slot:
+        return ""
+    height = ((conf.get("heights") or {}).get(place)) or 280
+    return (f'<aside class="ad-slot ad-{place}" style="min-height:{height}px">'
+            f'<span class="ad-label">広告</span>'
+            f'<ins class="adsbygoogle" style="display:block;min-height:{height}px"'
+            f' data-ad-client="{client}" data-ad-slot="{slot}"'
+            f' data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            f'<script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>'
+            f'</aside>')
+
+
 def jsonld(title, description, canonical_path, path_label=None, meta=None):
     """構造化データ(JSON-LD)を出す。
 
@@ -271,7 +321,7 @@ def jsonld(title, description, canonical_path, path_label=None, meta=None):
 
 
 def page(title, description, body, path_label=None, is_article=False, meta=None,
-         canonical_path=""):
+         canonical_path="", ads=None):
     canonical = f'\n<link rel="canonical" href="{SITE_URL}{canonical_path}">' if canonical_path else ""
     # OGP / Twitter カード。文言は新しく書かず、既存の title / description をそのまま使う。
     og = ""
@@ -281,6 +331,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
               f'\n<meta property="og:url" content="{SITE_URL}{canonical_path}">'
               f'\n<meta name="twitter:card" content="summary">')
     ld = jsonld(title, description, canonical_path, path_label, meta if is_article else None)
+    ad_head = adsense_head(ads or {})
     breadcrumb = ""
     if path_label:
         breadcrumb = f'<nav class="breadcrumb"><a href="/">ホーム</a> &rsaquo; <span>{path_label}</span></nav>'
@@ -294,7 +345,7 @@ def page(title, description, body, path_label=None, is_article=False, meta=None,
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}{og}{ld}
+<meta name="google-site-verification" content="fPGxypaCp2QvXPFkW9chnTXoec4QW44WGpv4LwKJw0M">{canonical}{og}{ld}{ad_head}
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
@@ -348,13 +399,16 @@ def build():
         meta = json.loads(m.group(1))
         body = raw[m.end():].strip()
         body = body.replace("{{PRODUCT_TABLE}}", product_table(meta.get("products", []), ads))
+        # ディスプレイ広告は差し込み標準(見積導線→比較表→文脈内リンク→末尾検索リンク)より
+        # 下の優先度に置く。単価が2桁違うので、これらの上に来てはいけない。
         full = (pr_slot(ads, "article_top")
                 + f"<article><h1>{meta['title']}</h1>" + body
                 + quote_block(ads, meta, body) + shop_block(ads, meta)
+                + ad_slot(ads, "article_bottom", meta)
                 + "</article>")
         html = page(f"{meta['title']} | {SITE_NAME}", meta["description"], full,
                     path_label=meta["title"], is_article=True, meta=meta,
-                    canonical_path="/" + meta["slug"])
+                    canonical_path="/" + meta["slug"], ads=ads)
         with open(os.path.join(DIST, meta["slug"] + ".html"), "w", encoding="utf-8") as f:
             f.write(html)
         articles.append(meta)
@@ -377,7 +431,7 @@ def build():
 {''.join(sections)}"""
     with open(os.path.join(DIST, "index.html"), "w", encoding="utf-8") as f:
         f.write(page(f"{SITE_NAME} — {SITE_DESC}", SITE_DESC + "。電動工具の選び方を規格と公式スペックから解説。", top_body,
-                     canonical_path="/"))
+                     canonical_path="/", ads=ads))
 
     # 運営者情報
     about = """<article><h1>運営者情報</h1>
@@ -394,7 +448,7 @@ def build():
 <p>当サイトはアフィリエイトプログラムに参加しています。広告・アフィリエイトリンクには「PR」表記を行い、報酬の有無が記事の評価に影響しない運営を行います。</p></article>"""
     with open(os.path.join(DIST, "about.html"), "w", encoding="utf-8") as f:
         f.write(page(f"運営者情報 | {SITE_NAME}", "工具えらび堂の運営者情報と編集方針", about, path_label="運営者情報",
-                     canonical_path="/about"))
+                     canonical_path="/about", ads=ads))
 
     # 広告掲載のご案内(メディアガイド)
     ad_count = len(articles)
@@ -464,7 +518,7 @@ def build():
         f.write(page(f"広告掲載のご案内 | {SITE_NAME}",
                      "工具えらび堂の広告掲載メニュー・料金・編集方針のご案内。タイアップ記事、PR枠の掲載を承ります。",
                      adguide, path_label="広告掲載のご案内",
-                     canonical_path="/advertise"))
+                     canonical_path="/advertise", ads=ads))
 
     # プライバシーポリシー
     privacy = """<article><h1>プライバシーポリシー</h1>
@@ -479,7 +533,7 @@ def build():
 <p>制定日: 2026年7月28日 / 改定日: 2026年9月19日</p></article>"""
     with open(os.path.join(DIST, "privacy.html"), "w", encoding="utf-8") as f:
         f.write(page(f"プライバシーポリシー | {SITE_NAME}", "工具えらび堂のプライバシーポリシー", privacy, path_label="プライバシーポリシー",
-                     canonical_path="/privacy"))
+                     canonical_path="/privacy", ads=ads))
 
     # sitemap.xml(Search Consoleに登録した瞬間に効くよう、記事の更新日を反映する)
     static_pages = [("", None), ("about", None), ("advertise", None), ("privacy", None)]

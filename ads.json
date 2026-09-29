@@ -16,5 +16,19 @@
     "email": "nks.taichi@gmail.com"
   },
   "home_top": [],
-  "article_top": []
+  "article_top": [],
+  "adsense": {
+    "_note": "ディスプレイ広告。client が空のあいだは枠もスクリプトも一切出さない(偽の枠を作らないため)。AdSenseの審査が通ったら client に ca-pub-... を、slots に各枠の広告ユニットIDを入れる。heights は CLS 対策で先に確保する高さ(px)。PR記事(META の pr:true)では描画しない。",
+    "client": "",
+    "slots": {
+      "article_bottom": "",
+      "article_mid": "",
+      "sidebar": ""
+    },
+    "heights": {
+      "article_bottom": 280,
+      "article_mid": 280,
+      "sidebar": 600
+    }
+  }
 }
