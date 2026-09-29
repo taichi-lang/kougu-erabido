@@ -16,3 +16,4 @@
 | 2026-09-27 | 新規3本 | 9/24〜9/26が0本で止まっていた | 比較表つきで3本公開（grinder-ac-vs-cordless／shujinki-rendou-consent／impact-wrench-18v-vs-36v） | — |
 | 2026-09-29 | makita-10v-vs-18v | 購買意図が高いのに比較表が無かった（改修キュー順1） | マキタ公式の公表値で比較表を追加（TD090D／TD111D／TD173D）。同じ10.8Vでも差込式とスライド式で別機種になることを表で示した。表と矛盾していた「数値の断定を行っていない」の根拠注記を出典の説明に差し替え | — |
 | 2026-09-29 | 新規3本 | 固定枠（3本＋改修1本）に戻した初日 | 比較表つきで3本公開（reciprocating-saw-erabikata／multi-tool-erabikata／hammer-drill-18v-vs-36v）。被リンク0件を避けるため既存3本の本文に1文ずつ足した（recipro-blade-erabikata／multitool-blade-torituke／shindou-drill-vs-hammer-drill） | — |
+| 2026-09-30 | makita-vs-hikoki | 購買意図が高いのに比較表が無かった（改修キュー順1） | メーカー公式の公表値で比較表を追加（マキタ TD173D／TD002G、HiKOKI WH18DC／WH36DD）。本文の主題であるバッテリー体系の違いが「電源」「使用蓄電池」欄に表れるよう、両社の18V機と高電圧機を並べた。導入文と出典注記（トルクの測定条件の併記有無）を同じ箇所に添えた | — |
