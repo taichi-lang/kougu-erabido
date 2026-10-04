@@ -50,6 +50,7 @@ JSON.stringify({pages,stopped,distinct:urls.size,urls:[...urls].sort()},null,1)
 - **数字は「その日の件数」と「これまでの和集合」の2つを残す。**和集合は `notes/index-log/*_ddg.txt` を
   `sort -u` するだけで出る（09-27 時点 **51 URL・うち記事49本**）
   - 09-29: 単日 **38 URL**（40ページ・`cap`）/ 和集合 **52 URL・記事50本/91本**。増えた1件は 09-28 出荷の `shujinki-rendou-consent`（出荷翌日に出た）
+  - 10-05: 単日 **34 URL**（40ページ・`cap`）/ 和集合 **60 URL・記事58本/109本**。新たに出た8件のうち6件は 10-02 出荷の記事（09-29〜10-02 執筆分12本中6本が3日以内に出た）
 - `stopped:"cap"` で返ってきた値は **下限**である。「40件」ではなく「**40件（下限・収束）**」と書く
 - **DuckDuckGo は Google ではない。**この数字で Google の索引を語らない。
   **Google は本日も測れていない**（bot 判定・CAPTCHA は解かない）
