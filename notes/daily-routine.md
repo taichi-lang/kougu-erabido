@@ -75,7 +75,7 @@ Search Console が未確認で表示回数が見えないため、**購買意図
 | 順 | カテゴリ | 残り | 記事 |
 | --- | --- | --- | --- |
 | 1 | 比較・選定 | 0本 | — |
-| 2 | 用途別選定 | 2本 | marunoko-vs-jigsaw ／ wooddeck-kougu-ichishiki |
+| 2 | 用途別選定 | 1本 | wooddeck-kougu-ichishiki |
 | 3 | 基礎知識 | 8本 | battery-18v-vs-14v ／ battery-ah-erabikata ／ chuck-10mm-13mm ／ driver-bit-size ／ hijunsei-battery ／ hontai-nomi-hyouki ／ maruno-ko-blade-size ／ torque-nm-kihon |
 | 4 | 規格辞典 | 67本 | **最後。** 比較表より内部リンクの整備が先 |
 
