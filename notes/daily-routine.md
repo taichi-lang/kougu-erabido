@@ -76,7 +76,7 @@ Search Console が未確認で表示回数が見えないため、**購買意図
 | --- | --- | --- | --- |
 | 1 | 比較・選定 | 0本 | — |
 | 2 | 用途別選定 | 0本 | —（2026-10-06 完了） |
-| 3 | 基礎知識 | 5本 | driver-bit-size ／ hijunsei-battery ／ hontai-nomi-hyouki ／ maruno-ko-blade-size ／ torque-nm-kihon |
+| 3 | 基礎知識 | 4本 | hijunsei-battery ／ hontai-nomi-hyouki ／ maruno-ko-blade-size ／ torque-nm-kihon |
 | 4 | 規格辞典 | 67本 | **最後。** 比較表より内部リンクの整備が先 |
 
 **改修は1記事につき1箇所だけ変える。** 目標 → 仮説 → 1箇所だけ変更 → 記録。
