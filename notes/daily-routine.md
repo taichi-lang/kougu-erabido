@@ -77,7 +77,7 @@ Search Console が未確認で表示回数が見えないため、**購買意図
 | 1 | 比較・選定 | 0本 | — |
 | 2 | 用途別選定 | 0本 | —（2026-10-06 完了） |
 | 3 | 基礎知識 | 0本 | —（2026-10-14 完了） |
-| 4 | 規格辞典 | 60本 | **次はここ（残るのはこのカテゴリだけ）。** 内部リンク整備から（2026-10-15 1本目: senjouki-encho-hose／10-16 2本目: cordreel-teikaku-gendo／10-17 3本目: bojin-mask-ds2-rs2／10-18 4本目: tap-shitaana-jis-b1004／10-19 5本目: rokkaku-nut-style-takasa／10-20 6本目: nogisu-seido-jis／10-21 7本目: dendou-kougu-bousui。次の候補: 被リンク数の多い規格辞典から順に（grinder-toishi-size 被リンク26本） |
+| 4 | 規格辞典 | 59本 | **次はここ（残るのはこのカテゴリだけ）。** 内部リンク整備から（2026-10-15 1本目: senjouki-encho-hose／10-16 2本目: cordreel-teikaku-gendo／10-17 3本目: bojin-mask-ds2-rs2／10-18 4本目: tap-shitaana-jis-b1004／10-19 5本目: rokkaku-nut-style-takasa／10-20 6本目: nogisu-seido-jis／10-21 7本目: dendou-kougu-bousui／10-22 8本目: grinder-toishi-size。次の候補: 被リンク数の多い規格辞典から順に（encho-code-futosa 被リンク33本） |
 
 **改修は1記事につき1箇所だけ変える。** 目標 → 仮説 → 1箇所だけ変更 → 記録。
 
