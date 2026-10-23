@@ -204,12 +204,12 @@ def product_table(products, ads):
             f'<a href="{l["url"].replace("&", "&amp;")}" rel="sponsored nofollow" target="_blank" class="shop-link">{l["label"]}</a>'
             for l in product_links(ads, p)
         ) or '<span class="muted">リンク準備中</span>'
-        rows.append(f"""      <tr data-price="{p['price']}" data-maker="{p['maker']}" data-feature="{p['feature']}">
+        rows.append(f"""      <tr data-price="{p.get('price', 0)}" data-maker="{p['maker']}" data-feature="{p['feature']}">
         <td class="td-maker">{p['maker']}</td>
         <td class="td-model">{p['model']}</td>
         <td><span class="feature-tag">{p['feature']}</span></td>
         <td class="td-spec">{p['spec']}</td>
-        <td class="td-price">{p['price']:,}円<span class="price-note">{p.get('price_note','')}</span></td>
+        <td class="td-price">{(format(p['price'], ',') + '円') if p.get('price') else '実売価格は未調査'}<span class="price-note">{p.get('price_note','')}</span></td>
         <td>{links}</td>
       </tr>""")
     return f"""<div class="sort-bar" role="group" aria-label="並び替え">
